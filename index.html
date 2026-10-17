@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Boletim do Fiscal desta semana</title>
-<meta name="description" content="As mudanças da reforma tributária e do fisco, toda sexta, explicadas por um auditor fiscal. Gratuito.">
+<meta name="description" content="O que aconteceu durante a semana no mundo tributário e na reforma tributária, toda sexta, explicado por um auditor fiscal. Gratuito.">
 <meta property="og:title" content="Boletim do Fiscal desta semana">
-<meta property="og:description" content="As mudanças da reforma tributária e do fisco, explicadas por Israel Menezes, auditor fiscal.">
+<meta property="og:description" content="O que aconteceu durante a semana no mundo tributário e na reforma tributária, explicado por Israel Menezes, auditor fiscal.">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#0a0a0a">
 <style>
@@ -76,7 +76,7 @@
   <section id="captura">
     <span class="selo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h8l-1 8 10-12h-8z"/></svg>Material gratuito · toda sexta</span>
     <h1><span class="destaque">Boletim do Fiscal</span> desta semana</h1>
-    <p class="sub">O que mudou na reforma tributária e no fisco, explicado por um auditor fiscal.</p>
+    <p class="sub">O que aconteceu durante a semana no mundo tributário e na reforma tributária, explicado por um auditor fiscal.</p>
 
     <form id="form" class="cartao" novalidate>
       <p class="intro"><strong>Cadastre-se</strong> e receba toda sexta no seu e-mail, sem precisar pedir de novo.</p>
@@ -121,7 +121,10 @@
 
 <script>
   // ===== Ajustes (só mexer aqui) =====
-  // Links de captação do Clickmax (Marketing → Links de captação), um por perfil. Vazio = página em teste, não grava.
+  // Ponte no servidor da nuvem (17/10/2026): a janela manda o cadastro para cá, e o servidor repassa ao Clickmax e guarda
+  // uma cópia (CRM F1SCAL). Por quê: o envio direto ao Clickmax falha no navegador interno do Instagram. Vazio = manda direto.
+  var PONTE = 'https://oraculo.tutorfiscal.com.br/boletim-cadastro/enviar';
+  // Links de captação do Clickmax (Marketing → Links de captação), um por perfil. Usados se a ponte falhar.
   var CAPTURA = {
     'instagram-auditor': 'https://api.clickmax.io/ingest/vLOM3wTXbEtqfErUuKQhpMPQ',
     'instagram-tutor': 'https://api.clickmax.io/ingest/ePlzlyDNcQcIKTvspNB7P8Lf'
@@ -181,13 +184,19 @@
     window.scrollTo(0, 0);
   }
 
-  // Grava o contato no Clickmax pelo link de captação (POST JSON). Resolve com true se gravou.
-  function gravar(dados) {
-    var url = CAPTURA[origem];
-    if (!url) return Promise.reject(new Error('sem link de captação'));
+  // Envia o cadastro (POST JSON). Primeiro pela ponte do servidor; se ela falhar, direto ao link de captação do Clickmax.
+  function enviarPara(url, dados, aceitar) {
     return fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dados) })
       .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
-      .then(function (resp) { if (!resp || !resp.leadId) throw new Error('sem leadId'); return true; });
+      .then(function (resp) { if (!aceitar(resp)) throw new Error('resposta'); return true; });
+  }
+  function gravar(dados) {
+    var direto = CAPTURA[origem];
+    var pelaPonte = PONTE ? enviarPara(PONTE, dados, function (r) { return r && r.ok; }) : Promise.reject(new Error('sem ponte'));
+    return pelaPonte.catch(function () {
+      if (!direto) throw new Error('sem link de captação');
+      return enviarPara(direto, dados, function (r) { return r && r.leadId; });
+    });
   }
 
   form.addEventListener('submit', function (e) {
@@ -212,7 +221,7 @@
       utmCampaign: 'boletim-do-fiscal',
       customFields: { origem: origem, consentimento: document.getElementById('texto-consent').textContent, pagina: location.href }
     };
-    if (!CAPTURA[origem]) { aviso.textContent = 'Página em teste: ainda não ligada ao cadastro.'; aviso.style.display = 'block'; return; }
+    if (!PONTE && !CAPTURA[origem]) { aviso.textContent = 'Página em teste: ainda não ligada ao cadastro.'; aviso.style.display = 'block'; return; }
 
     botao.disabled = true; botao.textContent = 'Enviando...';
     gravar(dados)
