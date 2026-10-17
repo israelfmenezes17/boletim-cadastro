@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Boletim do Fiscal desta semana</title>
+<meta name="description" content="As mudanças da reforma tributária e do fisco, toda sexta, explicadas por um auditor fiscal. Gratuito.">
+<meta property="og:title" content="Boletim do Fiscal desta semana">
+<meta property="og:description" content="As mudanças da reforma tributária e do fisco, explicadas por Israel Menezes, auditor fiscal.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0a0a0a">
+<style>
+  /* Versão 3 (17/10/2026). Desenho copiado da janela de cadastro do @fabianocarvalhojr em 16/10/2026:
+     fundo quase preto, cartão com borda fina, campos escuros, selo no alto, título com destaque, botão largo.
+     Cor de destaque: verde neon. Novidades da v3: serve aos dois perfis (auditor e Tutor Fiscal), grava o
+     contato no Clickmax e tem a saída "só quero a edição desta semana, sem cadastro". */
+  :root {
+    --fundo: #0a0a0a; --cartao: #141414; --borda: #1f1f1f; --campo: #0a0a0a;
+    --texto: #e5e5e5; --cinza: #a3a3a3; --neon: #39ff14; --neon-escuro: #061006; --erro: #ff6b6b;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--fundo); color: var(--texto);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-text-size-adjust: 100%; }
+  body { min-height: 100vh; }
+  main { max-width: 448px; margin: 0 auto; padding: 40px 16px 48px; text-align: center; }
+  .selo { display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px;
+    background: rgba(57,255,20,.10); color: var(--neon); font-size: 14px; font-weight: 500; line-height: 20px; margin: 0 0 16px; }
+  .selo svg { width: 14px; height: 14px; }
+  h1 { font-size: 30px; line-height: 1.25; font-weight: 700; margin: 0 0 16px; letter-spacing: -.01em; }
+  h1 .destaque { color: var(--neon); }
+  .sub { color: var(--cinza); font-size: 16px; line-height: 26px; margin: 0 0 32px; }
+  .cartao { background: var(--cartao); border: 1px solid var(--borda); border-radius: 16px; padding: 32px; text-align: left; }
+  .cartao > p.intro { color: var(--texto); font-size: 15px; line-height: 22px; text-align: center; margin: 0 0 24px; }
+  .cartao > p.intro strong { color: var(--neon); font-weight: 600; }
+  .campo { margin: 0 0 16px; }
+  label { display: block; color: var(--cinza); font-size: 14px; font-weight: 500; line-height: 20px; margin: 0 0 8px; }
+  input[type=text], input[type=email], input[type=tel], select { width: 100%; height: 50px; font-size: 16px; line-height: 24px; color: var(--texto);
+    background: var(--campo); border: 1px solid var(--borda); border-radius: 12px; padding: 12px 16px; outline: none;
+    font-family: inherit; -webkit-appearance: none; appearance: none; }
+  input::placeholder { color: rgba(163,163,163,.5); }
+  input:focus, select:focus { border-color: var(--neon); box-shadow: 0 0 0 3px rgba(57,255,20,.18); }
+  .linha-tel { display: flex; gap: 12px; }
+  .linha-tel select { width: 104px; flex: 0 0 104px; padding: 12px 28px 12px 12px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23a3a3a3' stroke-width='1.5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 10px center; }
+  .linha-tel input { flex: 1 1 auto; }
+  .invalido input, .invalido select { border-color: var(--erro); }
+  .msg-erro { display: none; color: var(--erro); font-size: 13px; line-height: 18px; margin-top: 6px; }
+  .invalido .msg-erro { display: block; }
+  .escondido { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  button, .botao { display: block; width: 100%; height: 56px; margin: 8px 0 0; padding: 16px 24px; border: 0; border-radius: 12px;
+    background: var(--neon); color: var(--neon-escuro); font-size: 16px; font-weight: 600; line-height: 24px; text-align: center;
+    text-decoration: none; cursor: pointer; font-family: inherit; box-shadow: 0 0 24px rgba(57,255,20,.28); }
+  button:hover, .botao:hover { filter: brightness(1.06); }
+  button:disabled { opacity: .6; cursor: wait; }
+  .sem-cadastro { display: block; margin: 18px auto 0; color: var(--cinza); font-size: 14px; line-height: 20px; text-align: center;
+    text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(163,163,163,.5); }
+  .sem-cadastro:hover { color: var(--texto); }
+  .seguro { color: rgba(163,163,163,.6); font-size: 12px; line-height: 18px; text-align: center; margin: 16px 0 0; }
+  .aviso-erro { display: none; background: rgba(255,107,107,.1); border: 1px solid var(--erro); color: #ffd1d1;
+    border-radius: 12px; padding: 10px 12px; font-size: 14px; margin-top: 12px; }
+  #obrigado { display: none; }
+  #obrigado .icone { width: 56px; height: 56px; border-radius: 50%; margin: 0 auto 16px; display: grid; place-items: center;
+    background: rgba(57,255,20,.10); color: var(--neon); }
+  #obrigado .icone svg { width: 28px; height: 28px; }
+  #obrigado h2 { font-size: 24px; line-height: 1.25; margin: 0 0 8px; text-align: center; }
+  #obrigado p { color: var(--cinza); font-size: 16px; line-height: 26px; margin: 0 0 16px; text-align: center; }
+  footer { color: rgba(163,163,163,.6); font-size: 12px; line-height: 18px; margin-top: 32px; }
+  footer a { color: var(--neon); text-decoration: none; }
+  @media (max-width: 480px) { main { padding-top: 32px; } .cartao { padding: 24px; } h1 { font-size: 28px; } }
+</style>
+</head>
+<body>
+<main>
+  <section id="captura">
+    <span class="selo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h8l-1 8 10-12h-8z"/></svg>Material gratuito · toda sexta</span>
+    <h1><span class="destaque">Boletim do Fiscal</span> desta semana</h1>
+    <p class="sub">O que mudou na reforma tributária e no fisco, explicado por um auditor fiscal.</p>
+
+    <form id="form" class="cartao" novalidate>
+      <p class="intro"><strong>Cadastre-se</strong> e receba toda sexta no seu e-mail, sem precisar pedir de novo.</p>
+      <div class="campo" id="c-nome">
+        <label for="nome">Nome</label>
+        <input id="nome" name="nome" type="text" autocomplete="name" placeholder="Seu nome" maxlength="80" required>
+        <div class="msg-erro">Escreva seu nome.</div>
+      </div>
+      <div class="campo" id="c-email">
+        <label for="email">E-mail</label>
+        <input id="email" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" placeholder="seu@email.com" maxlength="120" required>
+        <div class="msg-erro">Confira o e-mail (exemplo: nome@gmail.com).</div>
+      </div>
+      <div class="campo" id="c-whatsapp">
+        <label for="whatsapp">Celular (WhatsApp)</label>
+        <div class="linha-tel">
+          <select id="ddi" name="ddi" aria-label="País"><option value="BR" selected>🇧🇷 +55</option></select>
+          <input id="whatsapp" name="whatsapp" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="(00) 00000-0000" maxlength="16" required>
+        </div>
+        <div class="msg-erro">Confira o número, com DDD (exemplo: (81) 99999-9999).</div>
+      </div>
+      <div class="escondido" aria-hidden="true">
+        <label for="site">Não preencha</label><input id="site" name="site" type="text" tabindex="-1" autocomplete="off">
+      </div>
+      <button id="enviar" type="submit">Quero receber toda semana</button>
+      <div class="aviso-erro" id="aviso-erro"></div>
+      <a id="sem-cadastro" class="sem-cadastro" href="#" target="_blank" rel="noopener">Só quero a edição desta semana, sem cadastro</a>
+      <p class="seguro" id="texto-consent">Seus dados estão seguros e não serão compartilhados. Ao enviar, você autoriza receber o Boletim do Fiscal e as atualizações fiscais por e-mail e WhatsApp.</p>
+    </form>
+  </section>
+
+  <section id="obrigado" class="cartao" aria-live="polite">
+    <div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></div>
+    <h2>Pronto<span id="primeiro-nome"></span>! Cadastro feito.</h2>
+    <p>Toque no botão para abrir a edição desta semana:</p>
+    <a id="baixar" class="botao" href="#" target="_blank" rel="noopener">Abrir o Boletim do Fiscal</a>
+    <p class="seguro">As próximas edições chegam no seu e-mail toda sexta.</p>
+  </section>
+
+  <footer id="rodape"></footer>
+</main>
+
+<script>
+  // ===== Ajustes (só mexer aqui) =====
+  // Links de captação do Clickmax (Marketing → Links de captação), um por perfil. Vazio = página em teste, não grava.
+  var CAPTURA = {
+    'instagram-auditor': '',
+    'instagram-tutor': ''
+  };
+  // Link fixo do PDF da semana (o arquivo por trás dele é trocado toda sexta pela rotina do Boletim).
+  var LINK_BOLETIM = 'https://drive.google.com/file/d/1_uABopcULh-eIt7VNNPC7LKecrC5JE8-/view';
+  // Quem assina a página em cada perfil.
+  var PERFIS = {
+    'instagram-auditor': { nome: 'Israel Menezes, auditor fiscal', arroba: '@auditorfiscal.israel', link: 'https://www.instagram.com/auditorfiscal.israel/' },
+    'instagram-tutor':   { nome: 'Tutor Fiscal', arroba: '@tutorfiscal_', link: 'https://www.instagram.com/tutorfiscal_/' }
+  };
+  // ===================================
+
+  var params = new URLSearchParams(location.search);
+  var origem = (params.get('origem') || 'instagram-auditor').replace(/[^\w.-]/g, '').slice(0, 40);
+  if (!PERFIS[origem]) origem = 'instagram-auditor';
+  var perfil = PERFIS[origem];
+  document.getElementById('rodape').innerHTML = 'Boletim do Fiscal · ' + perfil.nome + ' · <a href="' + perfil.link + '" target="_blank" rel="noopener">' + perfil.arroba + '</a>';
+  document.getElementById('sem-cadastro').href = LINK_BOLETIM;
+
+  var form = document.getElementById('form');
+  var botao = document.getElementById('enviar');
+  var aviso = document.getElementById('aviso-erro');
+  var campoWhats = document.getElementById('whatsapp');
+  var falhas = 0;
+
+  function digitos(v) {
+    var d = String(v).replace(/\D/g, '');
+    if (d.length > 11 && d.indexOf('55') === 0) d = d.slice(2);
+    if (d.charAt(0) === '0') d = d.slice(1);
+    return d.slice(0, 11);
+  }
+  function mascara(d) {
+    if (!d) return '';
+    if (d.length <= 2) return '(' + d;
+    if (d.length <= 6) return '(' + d.slice(0, 2) + ') ' + d.slice(2);
+    if (d.length <= 10) return '(' + d.slice(0, 2) + ') ' + d.slice(2, 6) + '-' + d.slice(6);
+    return '(' + d.slice(0, 2) + ') ' + d.slice(2, 7) + '-' + d.slice(7);
+  }
+  campoWhats.addEventListener('input', function () { campoWhats.value = mascara(digitos(campoWhats.value)); });
+
+  var validar = {
+    nome: function (v) { return v.trim().length >= 2; },
+    email: function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()); },
+    whatsapp: function (v) { return /^[1-9][1-9](9\d{8}|[2-8]\d{7})$/.test(digitos(v)); }
+  };
+  function marcar(id, ok) { document.getElementById('c-' + id).classList.toggle('invalido', !ok); return ok; }
+  ['nome', 'email', 'whatsapp'].forEach(function (id) {
+    document.getElementById(id).addEventListener('blur', function (e) { if (e.target.value) marcar(id, validar[id](e.target.value)); });
+  });
+
+  function mostrarObrigado(nome) {
+    document.getElementById('baixar').href = LINK_BOLETIM;
+    var primeiro = nome.trim().split(/\s+/)[0]; document.getElementById('primeiro-nome').textContent = primeiro ? ', ' + primeiro : '';
+    document.getElementById('captura').style.display = 'none';
+    document.getElementById('obrigado').style.display = 'block';
+    window.scrollTo(0, 0);
+  }
+
+  // Grava o contato no Clickmax pelo link de captação (POST JSON). Resolve com true se gravou.
+  function gravar(dados) {
+    var url = CAPTURA[origem];
+    if (!url) return Promise.reject(new Error('sem link de captação'));
+    return fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dados) })
+      .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
+      .then(function (resp) { if (!resp || !resp.leadId) throw new Error('sem leadId'); return true; });
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    aviso.style.display = 'none';
+    if (document.getElementById('site').value) { mostrarObrigado(''); return; } // robô preencheu o campo escondido
+    var nome = document.getElementById('nome').value;
+    var email = document.getElementById('email').value;
+    var ok = [
+      marcar('nome', validar.nome(nome)),
+      marcar('email', validar.email(email)),
+      marcar('whatsapp', validar.whatsapp(campoWhats.value))
+    ].every(Boolean);
+    if (!ok) { var p = form.querySelector('.invalido input'); if (p) p.focus(); return; }
+
+    var dados = {
+      name: nome.trim(),
+      email: email.trim().toLowerCase(),
+      telephone: '55' + digitos(campoWhats.value),
+      utmSource: 'instagram',
+      utmMedium: origem.replace('instagram-', ''),
+      utmCampaign: 'boletim-do-fiscal',
+      customFields: { origem: origem, consentimento: document.getElementById('texto-consent').textContent, pagina: location.href }
+    };
+    if (!CAPTURA[origem]) { aviso.textContent = 'Página em teste: ainda não ligada ao cadastro.'; aviso.style.display = 'block'; return; }
+
+    botao.disabled = true; botao.textContent = 'Enviando...';
+    gravar(dados)
+      .then(function () { mostrarObrigado(dados.name); })
+      .catch(function () {
+        falhas++;
+        botao.disabled = false; botao.textContent = 'Quero receber toda semana';
+        if (falhas >= 2) return mostrarObrigado(dados.name); // não deixa a pessoa sem o Boletim
+        aviso.textContent = 'Não conseguimos enviar agora. Confira os dados e toque de novo no botão.';
+        aviso.style.display = 'block';
+      });
+  });
+</script>
+</body>
+</html>
