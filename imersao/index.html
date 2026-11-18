@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lista de espera das Imersões</title>
+<meta name="description" content="Lista de espera das Imersões de IA da Tutor Fiscal, em Recife. Escolha o sábado.">
+<meta property="og:title" content="Lista de espera das Imersões">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0a0a0a">
+<style>
+  /* Versão 3 (17/10/2026). Desenho copiado da janela de cadastro do @fabianocarvalhojr em 16/10/2026:
+     fundo quase preto, cartão com borda fina, campos escuros, selo no alto, título com destaque, botão largo.
+     Cor de destaque: verde neon. Novidades da v3: serve aos dois perfis (auditor e Tutor Fiscal), grava o
+     contato no Clickmax e tem a saída "só quero a edição desta semana, sem cadastro". */
+  :root {
+    --fundo: #0a0a0a; --cartao: #141414; --borda: #1f1f1f; --campo: #0a0a0a;
+    --texto: #e5e5e5; --cinza: #a3a3a3; --neon: #39ff14; --neon-escuro: #061006; --erro: #ff6b6b;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--fundo); color: var(--texto);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-text-size-adjust: 100%; }
+  body { min-height: 100vh; }
+  main { max-width: 448px; margin: 0 auto; padding: 40px 16px 48px; text-align: center; }
+  .marca { display: block; height: 44px; width: auto; max-width: 80%; margin: 0 auto 24px; }
+  .selo { display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px;
+    background: rgba(57,255,20,.10); color: var(--neon); font-size: 14px; font-weight: 500; line-height: 20px; margin: 0 0 16px; }
+  .selo svg { width: 14px; height: 14px; }
+  h1 { font-size: 30px; line-height: 1.25; font-weight: 700; margin: 0 0 16px; letter-spacing: -.01em; }
+  h1 .destaque { color: var(--neon); }
+  .sub { color: var(--cinza); font-size: 16px; line-height: 26px; margin: 0 0 32px; }
+  .cartao { background: var(--cartao); border: 1px solid var(--borda); border-radius: 16px; padding: 32px; text-align: left; }
+  .cartao > p.intro { color: var(--texto); font-size: 15px; line-height: 22px; text-align: center; margin: 0 0 24px; }
+  .cartao > p.intro strong { color: var(--neon); font-weight: 600; }
+  .campo { margin: 0 0 16px; }
+  label { display: block; color: var(--cinza); font-size: 14px; font-weight: 500; line-height: 20px; margin: 0 0 8px; }
+  input[type=text], input[type=email], input[type=tel], select { width: 100%; height: 50px; font-size: 16px; line-height: 24px; color: var(--texto);
+    background: var(--campo); border: 1px solid var(--borda); border-radius: 12px; padding: 12px 16px; outline: none;
+    font-family: inherit; -webkit-appearance: none; appearance: none; }
+  input::placeholder { color: rgba(163,163,163,.5); }
+  input:focus, select:focus { border-color: var(--neon); box-shadow: 0 0 0 3px rgba(57,255,20,.18); }
+  .linha-tel { display: flex; gap: 12px; }
+  .linha-tel select { width: 104px; flex: 0 0 104px; padding: 12px 28px 12px 12px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23a3a3a3' stroke-width='1.5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 10px center; }
+  .linha-tel input { flex: 1 1 auto; }
+  .invalido input, .invalido select { border-color: var(--erro); }
+  .msg-erro { display: none; color: var(--erro); font-size: 13px; line-height: 18px; margin-top: 6px; }
+  .invalido .msg-erro { display: block; }
+  .datas { display: grid; gap: 8px; }
+  label.data { display: flex; align-items: center; gap: 12px; margin: 0; padding: 12px 16px; background: var(--campo);
+    border: 1px solid var(--borda); border-radius: 12px; color: var(--texto); font-size: 16px; cursor: pointer; }
+  label.data input { width: 20px; height: 20px; accent-color: var(--neon); flex: 0 0 auto; }
+  label.data:has(input:checked) { border-color: var(--neon); background: rgba(57,255,20,.07); }
+  .invalido .datas { outline: 1px solid var(--erro); outline-offset: 2px; border-radius: 12px; }
+  .local { color: var(--cinza); font-size: 14px; line-height: 22px; margin: 20px 0 0; text-align: center; }
+  .local b { color: var(--texto); font-weight: 600; }
+  .escondido { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  button, .botao { display: block; width: 100%; height: 56px; margin: 8px 0 0; padding: 16px 24px; border: 0; border-radius: 12px;
+    background: var(--neon); color: var(--neon-escuro); font-size: 16px; font-weight: 600; line-height: 24px; text-align: center;
+    text-decoration: none; cursor: pointer; font-family: inherit; box-shadow: 0 0 24px rgba(57,255,20,.28); }
+  button:hover, .botao:hover { filter: brightness(1.06); }
+  button:disabled { opacity: .6; cursor: wait; }
+  .sem-cadastro { display: block; margin: 18px auto 0; color: var(--cinza); font-size: 14px; line-height: 20px; text-align: center;
+    text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(163,163,163,.5); }
+  .sem-cadastro:hover { color: var(--texto); }
+  .seguro { color: rgba(163,163,163,.6); font-size: 12px; line-height: 18px; text-align: center; margin: 16px 0 0; }
+  .aviso-erro { display: none; background: rgba(255,107,107,.1); border: 1px solid var(--erro); color: #ffd1d1;
+    border-radius: 12px; padding: 10px 12px; font-size: 14px; margin-top: 12px; }
+  #obrigado { display: none; }
+  #obrigado .icone { width: 56px; height: 56px; border-radius: 50%; margin: 0 auto 16px; display: grid; place-items: center;
+    background: rgba(57,255,20,.10); color: var(--neon); }
+  #obrigado .icone svg { width: 28px; height: 28px; }
+  #obrigado h2 { font-size: 24px; line-height: 1.25; margin: 0 0 8px; text-align: center; }
+  #obrigado p { color: var(--cinza); font-size: 16px; line-height: 26px; margin: 0 0 16px; text-align: center; }
+  footer { color: rgba(163,163,163,.6); font-size: 12px; line-height: 18px; margin-top: 32px; }
+  footer a { color: var(--neon); text-decoration: none; }
+  @media (max-width: 480px) { main { padding-top: 32px; } .cartao { padding: 24px; } h1 { font-size: 28px; } }
+</style>
+</head>
+<body>
+<main>
+  <section id="captura">
+    <img class="marca" src="logo-tutor-f1scal-horizontal.png" alt="Tutor F1SCAL">
+    <span class="selo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h8l-1 8 10-12h-8z"/></svg>Imersões presenciais · Recife</span>
+    <h1>Lista de espera das <span class="destaque">Imersões</span></h1>
+    <p class="sub">Mude a rotina do seu escritório. Aprenda a usar a inteligência artificial e automatize até 70% das suas tarefas diárias.</p>
+
+    <form id="form" class="cartao" novalidate>
+      <p class="intro"><strong>Escolha o sábado</strong> e entre na lista de espera. Avisamos você quando abrir a vaga.</p>
+      <div class="campo" id="c-nome">
+        <label for="nome">Nome completo</label>
+        <input id="nome" name="nome" type="text" autocomplete="name" placeholder="Seu nome completo" maxlength="80" required>
+        <div class="msg-erro">Escreva nome e sobrenome.</div>
+      </div>
+      <div class="campo" id="c-email">
+        <label for="email">E-mail</label>
+        <input id="email" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" placeholder="seu@email.com" maxlength="120" required>
+        <div class="msg-erro">Confira o e-mail (exemplo: nome@gmail.com).</div>
+      </div>
+      <div class="campo" id="c-whatsapp">
+        <label for="whatsapp">Celular (WhatsApp)</label>
+        <div class="linha-tel">
+          <select id="ddi" name="ddi" aria-label="País"><option value="BR" selected>🇧🇷 +55</option></select>
+          <input id="whatsapp" name="whatsapp" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="(00) 00000-0000" maxlength="16" required>
+        </div>
+        <div class="msg-erro">Confira o número, com DDD (exemplo: (81) 99999-9999).</div>
+      </div>
+      <div class="campo" id="c-datas">
+        <label>Em quais sábados você quer entrar na lista?</label>
+        <div class="datas">
+          <label class="data"><input type="checkbox" name="datas" value="2027-01-09"><span><b>9 de janeiro</b> de 2027</span></label>
+          <label class="data"><input type="checkbox" name="datas" value="2027-02-13"><span><b>13 de fevereiro</b> de 2027</span></label>
+          <label class="data"><input type="checkbox" name="datas" value="2027-03-13"><span><b>13 de março</b> de 2027</span></label>
+          <label class="data"><input type="checkbox" name="datas" value="2027-04-10"><span><b>10 de abril</b> de 2027</span></label>
+        </div>
+        <div class="msg-erro">Marque pelo menos um sábado.</div>
+      </div>
+      <div class="escondido" aria-hidden="true">
+        <label for="site">Não preencha</label><input id="site" name="site" type="text" tabindex="-1" autocomplete="off">
+      </div>
+      <button id="enviar" type="submit">Entrar na lista de espera</button>
+      <div class="aviso-erro" id="aviso-erro"></div>
+      <p class="seguro" id="texto-consent">Seus dados estão seguros e não serão compartilhados. Ao enviar, você autoriza o contato da Tutor Fiscal por e-mail e WhatsApp sobre as Imersões.</p>
+    </form>
+    <p class="local"><b>Onde:</b> Empresarial Charles Darwin, Rua Senador José Henrique, 231, Sala 2006, Recife (PE). Tutor Fiscal, Laboratório de IA.</p>
+  </section>
+
+  <section id="obrigado" class="cartao" aria-live="polite">
+    <div class="icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></div>
+    <h2>Pronto<span id="primeiro-nome"></span>! Você está na lista.</h2>
+    <p>Você está na lista de espera dos sábados: <b id="escolhidas"></b>.</p>
+    <p class="seguro">Avisamos por e-mail e WhatsApp quando abrir a vaga.</p>
+  </section>
+
+  <footer id="rodape"></footer>
+</main>
+
+<script>
+  // ===== Ajustes (só mexer aqui) =====
+  // Ponte no servidor da nuvem (17/10/2026): a janela manda o cadastro para cá, e o servidor repassa ao Clickmax e guarda
+  // uma cópia (CRM F1SCAL). Por quê: o envio direto ao Clickmax falha no navegador interno do Instagram. Vazio = manda direto.
+  var PONTE = 'https://oraculo.tutorfiscal.com.br/boletim-cadastro/enviar';
+  // Links de captação do Clickmax (Marketing → Links de captação), um por perfil. Usados se a ponte falhar.
+  var CAPTURA = {};
+  // Quem assina a página em cada perfil.
+  var PERFIS = {
+    'instagram-auditor': { nome: 'Israel Menezes, auditor fiscal', arroba: '@auditorfiscal.israel', link: 'https://www.instagram.com/auditorfiscal.israel/' },
+    'instagram-tutor':   { nome: 'Tutor Fiscal', arroba: '@tutorfiscal_', link: 'https://www.instagram.com/tutorfiscal_/' }
+  };
+  // ===================================
+
+  var params = new URLSearchParams(location.search);
+  var origem = (params.get('origem') || 'instagram-auditor').replace(/[^\w.-]/g, '').slice(0, 40);
+  if (!PERFIS[origem]) origem = 'instagram-auditor';
+  var perfil = PERFIS[origem];
+  document.getElementById('rodape').innerHTML = 'Tutor Fiscal Educação Tributária | IA · ' + perfil.nome + ' · <a href="' + perfil.link + '" target="_blank" rel="noopener">' + perfil.arroba + '</a>';
+
+  var form = document.getElementById('form');
+  var botao = document.getElementById('enviar');
+  var aviso = document.getElementById('aviso-erro');
+  var campoWhats = document.getElementById('whatsapp');
+  var falhas = 0;
+
+  function digitos(v) {
+    var d = String(v).replace(/\D/g, '');
+    if (d.length > 11 && d.indexOf('55') === 0) d = d.slice(2);
+    if (d.charAt(0) === '0') d = d.slice(1);
+    return d.slice(0, 11);
+  }
+  function mascara(d) {
+    if (!d) return '';
+    if (d.length <= 2) return '(' + d;
+    if (d.length <= 6) return '(' + d.slice(0, 2) + ') ' + d.slice(2);
+    if (d.length <= 10) return '(' + d.slice(0, 2) + ') ' + d.slice(2, 6) + '-' + d.slice(6);
+    return '(' + d.slice(0, 2) + ') ' + d.slice(2, 7) + '-' + d.slice(7);
+  }
+  campoWhats.addEventListener('input', function () { campoWhats.value = mascara(digitos(campoWhats.value)); });
+
+  var validar = {
+    nome: function (v) { return v.trim().split(/\s+/).length >= 2; },
+    email: function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()); },
+    whatsapp: function (v) { return /^[1-9][1-9](9\d{8}|[2-8]\d{7})$/.test(digitos(v)); }
+  };
+  function marcar(id, ok) { document.getElementById('c-' + id).classList.toggle('invalido', !ok); return ok; }
+  ['nome', 'email', 'whatsapp'].forEach(function (id) {
+    document.getElementById(id).addEventListener('blur', function (e) { if (e.target.value) marcar(id, validar[id](e.target.value)); });
+  });
+
+  function escolhidas() { return [].map.call(form.querySelectorAll('input[name=datas]:checked'), function (c) { return c.value; }); }
+  function rotulo(v) { var m = ['janeiro','fevereiro','março','abril'][+v.slice(5, 7) - 1]; return +v.slice(8) + ' de ' + m; }
+  function mostrarObrigado(nome) {
+    document.getElementById('escolhidas').textContent = escolhidas().map(rotulo).join(', ');
+    var primeiro = nome.trim().split(/\s+/)[0]; document.getElementById('primeiro-nome').textContent = primeiro ? ', ' + primeiro : '';
+    document.getElementById('captura').style.display = 'none';
+    document.getElementById('obrigado').style.display = 'block';
+    window.scrollTo(0, 0);
+  }
+
+  // Envia o cadastro (POST JSON). Primeiro pela ponte do servidor; se ela falhar, direto ao link de captação do Clickmax.
+  function enviarPara(url, dados, aceitar) {
+    return fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dados) })
+      .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
+      .then(function (resp) { if (!aceitar(resp)) throw new Error('resposta'); return true; });
+  }
+  function gravar(dados) {
+    var direto = CAPTURA[origem];
+    var pelaPonte = PONTE ? enviarPara(PONTE, dados, function (r) { return r && r.ok; }) : Promise.reject(new Error('sem ponte'));
+    return pelaPonte.catch(function () {
+      if (!direto) throw new Error('sem link de captação');
+      return enviarPara(direto, dados, function (r) { return r && r.leadId; });
+    });
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    aviso.style.display = 'none';
+    if (document.getElementById('site').value) { mostrarObrigado(''); return; } // robô preencheu o campo escondido
+    var nome = document.getElementById('nome').value;
+    var email = document.getElementById('email').value;
+    var ok = [
+      marcar('nome', validar.nome(nome)),
+      marcar('email', validar.email(email)),
+      marcar('whatsapp', validar.whatsapp(campoWhats.value)),
+      marcar('datas', escolhidas().length > 0)
+    ].every(Boolean);
+    if (!ok) { var p = form.querySelector('.invalido input'); if (p) p.focus(); return; }
+
+    var dados = {
+      name: nome.trim(),
+      email: email.trim().toLowerCase(),
+      telephone: '55' + digitos(campoWhats.value),
+      utmSource: 'instagram',
+      utmMedium: origem.replace('instagram-', ''),
+      utmCampaign: 'imersao-lista-de-espera',
+      customFields: { datas: escolhidas().join(','), origem: 'imersao', perfil: origem, consentimento: document.getElementById('texto-consent').textContent, pagina: location.href }
+    };
+    if (!PONTE) { aviso.textContent = 'PRÉVIA: ainda não ligada ao cadastro (nada foi gravado).'; aviso.style.display = 'block'; return; }
+
+    botao.disabled = true; botao.textContent = 'Enviando...';
+    gravar(dados)
+      .then(function () { mostrarObrigado(dados.name); })
+      .catch(function () {
+        falhas++;
+        botao.disabled = false; botao.textContent = 'Entrar na lista de espera';
+        aviso.textContent = 'Não conseguimos enviar agora. Toque de novo no botão.';
+        aviso.style.display = 'block';
+      });
+  });
+</script>
+</body>
+</html>
